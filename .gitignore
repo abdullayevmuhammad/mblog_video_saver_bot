@@ -24,7 +24,7 @@ htmlcov/
 .env
 logs/
 env/
-test/
+tests/
 tmp/
 .pytest_cache/
 __pycache__/
