@@ -269,7 +269,7 @@ async def handle_download_callback(callback: CallbackQuery) -> None:
             return
 
         file = FSInputFile(path=result.file_path, filename=f"{result.title}.{result.ext}")
-        caption = f"✅ Yuklandi: {result.title}\n@mbloguzar"
+        caption = f"✅ Yuklandi: {result.title}\n🔗 {url}\n@mbloguzar"
         if result.ext == "mp3":
             await bot.send_audio(chat_id=callback.from_user.id, audio=file, caption=caption)
         else:
