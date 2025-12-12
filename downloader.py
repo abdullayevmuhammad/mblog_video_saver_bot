@@ -114,7 +114,7 @@ def _build_opts(
         opts["http_headers"] = {"User-Agent": user_agent}
     if cookies_path:
         opts["cookiefile"] = str(cookies_path)
-
+    opts["ffmpeg_location"] = str(Path.home() / "ffmpeg")
     return opts
 
 
