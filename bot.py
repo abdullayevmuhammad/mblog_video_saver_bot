@@ -139,16 +139,18 @@ async def handle_download_command(message: Message) -> None:
         await message.answer("Linkni yuboring")
         return
 
+    await prompt_for_quality(message, url)
+
     try:
         await message.delete()
     except Exception:
         pass
 
 
+
 # Catch plain messages that may contain URLs
 @dp.message(F.text)
 async def handle_any_message(message: Message) -> None:
-    # Buyruqlarni o'tkazib yuborish
     if message.text and message.text.startswith("/"):
         return
 
@@ -157,10 +159,15 @@ async def handle_any_message(message: Message) -> None:
         await message.answer("Iltimos, YouTube yoki Instagram havolasini yuboring.")
         return
 
+    # 1) Avval tugmalarni chiqaramiz
+    await prompt_for_quality(message, url)
+
+    # 2) Keyin user link xabarini o'chiramiz (xato bo'lsa ham bot ishlashda davom etadi)
     try:
         await message.delete()
     except Exception:
         pass
+
 
 @dp.callback_query(F.data.startswith("DL|"))
 async def handle_download_callback(callback: CallbackQuery) -> None:
