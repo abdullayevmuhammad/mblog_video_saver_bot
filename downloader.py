@@ -115,6 +115,23 @@ def _build_opts(
     if cookies_path:
         opts["cookiefile"] = str(cookies_path)
     opts["ffmpeg_location"] = str(Path.home() / "ffmpeg")
+        # YouTube JS challenge solver + runtime (deno)
+    opts["remote_components"] = "ejs:github"
+    opts["js_runtimes"] = f"deno:{Path.home() / '.deno' / 'bin' / 'deno'}"
+
+    # SABR/web client muammosini kamaytirish
+    opts.setdefault("extractor_args", {})
+    opts["extractor_args"].setdefault("youtube", {})
+    opts["extractor_args"]["youtube"]["player_client"] = ["tv", "android"]
+
+    # Tezlik uchun (fragment parallel)
+    opts.update({
+        "concurrent_fragment_downloads": 4,
+        "fragment_retries": 10,
+        "retries": 10,
+        "socket_timeout": 30,
+    })
+
     return opts
 
 
