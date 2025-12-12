@@ -115,15 +115,17 @@ def _build_opts(
     if cookies_path:
         opts["cookiefile"] = str(cookies_path)
     opts["ffmpeg_location"] = str(Path.home() / "ffmpeg")
-        # YouTube JS challenge solver + runtime (deno)
-    opts["remote_components"] = "ejs:github"
+
+    # YouTube JS challenge solver + runtime (deno)
+    opts["remote_components"] = ["ejs:github"]
     opts["js_runtimes"] = {
         "deno": {"path": str(Path.home() / ".deno" / "bin" / "deno")}
     }
-    # SABR/web client muammosini kamaytirish
+
+    # SABR/web client muammolarini kamaytirish (android PO token talab qiladi -> qo'ymaymiz)
     opts.setdefault("extractor_args", {})
     opts["extractor_args"].setdefault("youtube", {})
-    opts["extractor_args"]["youtube"]["player_client"] = ["tv", "android"]
+    opts["extractor_args"]["youtube"]["player_client"] = ["tv"]
 
     # Tezlik uchun (fragment parallel)
     opts.update({
@@ -134,6 +136,7 @@ def _build_opts(
     })
 
     return opts
+
 
 
 def download_video(
