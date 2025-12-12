@@ -139,7 +139,10 @@ async def handle_download_command(message: Message) -> None:
         await message.answer("Linkni yuboring")
         return
 
-    await prompt_for_quality(message, url)
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 # Catch plain messages that may contain URLs
@@ -153,8 +156,11 @@ async def handle_any_message(message: Message) -> None:
     if not url:
         await message.answer("Iltimos, YouTube yoki Instagram havolasini yuboring.")
         return
-    await prompt_for_quality(message, url)
 
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 @dp.callback_query(F.data.startswith("DL|"))
 async def handle_download_callback(callback: CallbackQuery) -> None:
@@ -169,7 +175,15 @@ async def handle_download_callback(callback: CallbackQuery) -> None:
         await callback.answer("Link eskirgan. Qaytadan yuboring.", show_alert=True)
         return
 
-    await callback.answer("Yuklab olish boshlandi…", show_alert=False)
+# Tugmalarni olib tashlab, tanlangan sifatni ko‘rsatish
+    try:
+        await callback.message.edit_text(
+            f"✅ Tanlandi: {quality.upper()}\nYuklab olinmoqda…",
+            reply_markup=None,
+        )
+    except Exception:
+        pass
+
 
     member = await is_member(bot, CHANNEL_TARGET, callback.from_user.id)
     if not member:

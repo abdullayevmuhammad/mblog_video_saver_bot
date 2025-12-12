@@ -15,13 +15,14 @@ SUPPORTED_DOMAINS = re.compile(
 )
 
 QUALITY_MAP = {
-    "360p": "bestvideo[height<=360]+bestaudio/best[height<=360]/best",
-    "480p": "bestvideo[height<=480]+bestaudio/best[height<=480]/best",
-    "720p": "bestvideo[height<=720]+bestaudio/best[height<=720]/best",
-    "1080p": "bestvideo[height<=1080]+bestaudio/best[height<=1080]/best",
-    "best": "bestvideo+bestaudio/best",
-    "mp3": "bestaudio/best",
+    "360p":  "best[ext=mp4][height<=360][acodec!=none][vcodec!=none]/bestvideo[height<=360]+bestaudio/best",
+    "480p":  "best[ext=mp4][height<=480][acodec!=none][vcodec!=none]/bestvideo[height<=480]+bestaudio/best",
+    "720p":  "best[ext=mp4][height<=720][acodec!=none][vcodec!=none]/bestvideo[height<=720]+bestaudio/best",
+    "1080p": "bestvideo[height<=1080]+bestaudio/best",  # 1080p ko‘pincha alohida video+audio bo‘ladi
+    "best":  "bestvideo+bestaudio/best",
+    "mp3":   "bestaudio/best",
 }
+
 
 
 @dataclass
