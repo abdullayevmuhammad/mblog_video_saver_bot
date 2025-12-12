@@ -117,8 +117,9 @@ def _build_opts(
     opts["ffmpeg_location"] = str(Path.home() / "ffmpeg")
         # YouTube JS challenge solver + runtime (deno)
     opts["remote_components"] = "ejs:github"
-    opts["js_runtimes"] = f"deno:{Path.home() / '.deno' / 'bin' / 'deno'}"
-
+    opts["js_runtimes"] = {
+        "deno": {"path": str(Path.home() / ".deno" / "bin" / "deno")}
+    }
     # SABR/web client muammosini kamaytirish
     opts.setdefault("extractor_args", {})
     opts["extractor_args"].setdefault("youtube", {})
